@@ -1,0 +1,45 @@
+version: "3.1"
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: regform-mysql
+    working_dir: /application
+    volumes:
+      - .:/application
+    environment:
+      - MYSQL_ROOT_PASSWORD=regform
+      - MYSQL_DATABASE=regform
+      - MYSQL_USER=regform
+      - MYSQL_PASSWORD=regform
+    ports:
+      - "9911:3306"
+
+  webserver:
+    image: nginx:alpine
+    container_name: regform-webserver
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "9909:80"
+
+  php-fpm:
+    build: phpdocker/php-fpm
+    container_name: regform-php-fpm
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
+
+  phpmyadmin:
+      depends_on:
+        - mysql
+      image: phpmyadmin/phpmyadmin
+      restart: always
+      ports:
+        - '8081:80'
+      environment:
+        PMA_HOST: mysql
+        MYSQL_ROOT_PASSWORD: root

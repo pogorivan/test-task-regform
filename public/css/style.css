@@ -1,0 +1,118 @@
+.top-menu {
+    text-align: right;
+}
+
+.login-form-cont,
+.user-profile {
+    margin: 100px auto;
+    max-width: 1000px;
+    border: 1px solid #eeeeee;
+    box-shadow: 0 0 20px #b9b9b9;
+}
+
+.login-form-cont .tabs-cont {
+    margin: 50px;
+}
+
+.login-form-cont .tabs-navigation {
+    display: flex;
+    border-bottom: 1px solid #525252;
+}
+
+.login-form-cont .tabs-navigation .tab {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+    color: #4aa3ff;
+    border: 1px solid transparent;
+    margin-bottom: -1px;
+}
+
+.login-form-cont .tabs-navigation .tab.active {
+    color: #525252;
+    border-color: #525252 #525252 transparent #525252;
+    background: #ffffff;
+}
+
+.login-form-cont .tabs-content .tab {
+    display: none;
+}
+
+.login-form-cont .tabs-content .tab.active {
+    display: block;
+}
+
+form {
+    max-width: 300px;
+    margin: 50px auto;
+    font-size: 20px;
+    line-height: 1.1;
+}
+
+form .form-row {
+    margin: 20px 0;
+}
+
+form input[type='text'],
+form input[type='password'] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+form input[type='file'] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+form .form-row .error {
+    display: none;
+}
+
+form .form-row.has-error .error {
+    display: block;
+    color: red;
+}
+
+form label .red {
+    color: red;
+}
+
+form button {
+    display: block;
+    margin: 20px auto;
+    font-size: 20px;
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+#login-error {
+    color: red;
+    font-size: 20px;
+    text-align: center;
+}
+
+.user-profile {
+    padding: 30px;
+    font-size: 20px;
+}
+.user-profile h1 {
+    text-align: center;
+}
+.user-profile table {
+    border: 1px solid #525252;
+    border-spacing: 0;
+    margin: 0 auto;
+}
+.user-profile table td {
+    border: 1px solid #525252;
+    padding: 10px;
+}
+
+#email-exist {
+    color: red;
+}
