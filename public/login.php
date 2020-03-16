@@ -3,16 +3,18 @@
  * @var $config array
  */
 
+session_start();
+
 require 'include/config.php';
 require 'include/Auth.php';
 require 'include/User.php';
+require 'include/Translate.php';
 
 use TestTask\User;
 use TestTask\Auth;
+use TestTask\Translate;
 
 $dbh = new PDO($config['db_dsn'], $config['db_user'], $config['db_password']);
-
-session_start();
 
 if (Auth::isAuthenticated()){
     header("Location: index.php");
@@ -81,16 +83,18 @@ if (isset($_POST['email'])) {
     }
 }
 
+$translator = new Translate();
+
 include 'include/header.php';
 ?>
 
 <div class="login-form-cont">
-    <h1 style="text-align: center">Для доступа к личному кабинету необходимо авторизоваться</h1>
+    <h1 style="text-align: center"><?= $translator->translate('To access your personal account you need to log in') ?></h1>
 
     <div class="tabs-cont">
         <div class="tabs-navigation">
-            <div id="tab-login-button" class="tab<?= $_REQUEST['reg'] ? '' : ' active' ?>"><h2>Войти</h2></div>
-            <div id="tab-register-button" class="tab<?= $_REQUEST['reg'] ? ' active' : '' ?>"><h2>Зарегистрироваться</h2></div>
+            <div id="tab-login-button" class="tab<?= $_REQUEST['reg'] ? '' : ' active' ?>"><h2><?= $translator->translate('Log in') ?></h2></div>
+            <div id="tab-register-button" class="tab<?= $_REQUEST['reg'] ? ' active' : '' ?>"><h2><?= $translator->translate('Register') ?></h2></div>
         </div>
 
         <div class="tabs-content">
@@ -99,15 +103,15 @@ include 'include/header.php';
                     <div class="form-row<?= $errors['loginEmail'] ? ' has-error' : '' ?>">
                         <label for="login-form-email">Email</label>
                         <input id="login-form-email" type="text" name="email" value="<?= isset($emailVal) ? $emailVal : '' ?>">
-                        <div class="error">Ввведите правильный email</div>
+                        <div class="error"><?= $translator->translate('Please enter correct email') ?></div>
                     </div>
                     <div class="form-row<?= $errors['loginPassword'] ? ' has-error' : '' ?>">
-                        <label for="login-form-password">Пароль</label>
+                        <label for="login-form-password"><?= $translator->translate('Password') ?></label>
                         <input id="login-form-password" type="password" name="password">
-                        <div class="error">Введите пароль - минимум 6 символов</div>
+                        <div class="error"><?= $translator->translate('Please enter password - at least 6 characters') ?></div>
                     </div>
-                    <?= $loginError ? '<p id="login-error">Пользователь с таким email и паролем не найден</p>' : '' ?>
-                    <button type="submit">Войти</button>
+                    <?= $loginError ? '<p id="login-error">'.$translator->translate('User with such email and password was not found').'</p>' : '' ?>
+                    <button type="submit"><?= $translator->translate('Log in') ?></button>
                 </form>
             </div>
             <div id="tab-register" class="tab<?= $_REQUEST['reg'] ? ' active' : '' ?>">
@@ -115,30 +119,30 @@ include 'include/header.php';
                     <div class="form-row<?= $errors['regEmail'] ? ' has-error' : '' ?>">
                         <label for="register-form-email">Email <span class="red">*</span></label>
                         <input id="register-form-email" type="text" name="email" value="<?= isset($emailVal) ? $emailVal : '' ?>">
-                        <div class="error">Ввведите правильный email</div>
-                        <?= $errors['emailExists'] ? '<div id="email-exist">Данный email уже зарегистрирован</div>' : '' ?>
+                        <div class="error"><?= $translator->translate('Please enter correct email') ?></div>
+                        <?= $errors['emailExists'] ? '<div id="email-exist">'.$translator->translate('This email is already registered').'</div>' : '' ?>
                     </div>
                     <div class="form-row<?= $errors['regName'] ? ' has-error' : '' ?>">
-                        <label for="register-form-name">Имя <span class="red">*</span></label>
+                        <label for="register-form-name"><?= $translator->translate('Name') ?> <span class="red">*</span></label>
                         <input id="register-form-name" type="text" name="name" value="<?= isset($nameVal) ? $nameVal : '' ?>">
-                        <div class="error">Ввведите имя</div>
+                        <div class="error"><?= $translator->translate('Please enter your name') ?></div>
                     </div>
                     <div class="form-row<?= $errors['regPhoto'] ? ' has-error' : '' ?>">
-                        <label for="register-form-photo">Фото</label>
+                        <label for="register-form-photo"><?= $translator->translate('Photo') ?></label>
                         <input id="register-form-photo" type="file" name="photo">
-                        <div class="error">Загрузите файл gif, jpg или png не более 8Мб.</div>
+                        <div class="error"><?= $translator->translate('Select gif, jpg or png picture no more than 8Mb') ?></div>
                     </div>
                     <div class="form-row<?= $errors['regPassword'] ? ' has-error' : '' ?>">
-                        <label for="register-form-password">Пароль <span class="red">*</span></label>
+                        <label for="register-form-password"><?= $translator->translate('Password') ?> <span class="red">*</span></label>
                         <input id="register-form-password" type="password" name="password">
-                        <div class="error">Введите пароль - минимум 6 символов</div>
+                        <div class="error"><?= $translator->translate('Please enter password - at least 6 characters') ?></div>
                     </div>
                     <div class="form-row<?= $errors['regPasswordRepeat'] ? ' has-error' : '' ?>">
-                        <label for="register-form-password-repeat">Повторите пароль <span class="red">*</span></label>
+                        <label for="register-form-password-repeat"><?= $translator->translate('Repeat password') ?> <span class="red">*</span></label>
                         <input id="register-form-password-repeat" type="password" name="password_repeat">
-                        <div class="error">Повтор пароля и пароль не совпадают</div>
+                        <div class="error"><?= $translator->translate('Password repeat and password do not match') ?></div>
                     </div>
-                    <button type="submit">Войти</button>
+                    <button type="submit"><?= $translator->translate('Register') ?></button>
                 </form>
             </div>
         </div>
