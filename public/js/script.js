@@ -18,16 +18,16 @@ $(function () {
 
     $('#tab-login form').on('submit', function () {
         var hasError = false,
-            emailField = $('#login-form-email'),
-            passwordField = $('#login-form-password');
+            $emailField = $('#login-form-email'),
+            $passwordField = $('#login-form-password');
 
-        if (!validateEmail(emailField.val())) {
-            emailField.closest('.form-row').addClass('has-error');
+        if (!validateEmail($emailField.val())) {
+            $emailField.closest('.form-row').addClass('has-error');
             hasError = true;
         }
 
-        if (String(passwordField.val()).trim().length < 6) {
-            passwordField.closest('.form-row').addClass('has-error');
+        if (String($passwordField.val()).trim().length < 6) {
+            $passwordField.closest('.form-row').addClass('has-error');
             hasError = true;
         }
 
@@ -36,37 +36,38 @@ $(function () {
 
     $('#tab-register form').on('submit', function () {
         var hasError = false,
-            emailField = $('#register-form-email'),
-            nameField = $('#register-form-name'),
-            photoField = $('#register-form-photo'),
-            passwordField = $('#register-form-password'),
-            passwordRepeatField = $('#register-form-password-repeat');
+            $emailField = $('#register-form-email'),
+            $nameField = $('#register-form-name'),
+            $photoField = $('#register-form-photo'),
+            $passwordField = $('#register-form-password'),
+            $passwordRepeatField = $('#register-form-password-repeat');
 
-        if (!validateEmail(emailField.val())) {
-            emailField.closest('.form-row').addClass('has-error');
+        if (!validateEmail($emailField.val())) {
+            $emailField.closest('.form-row').addClass('has-error');
             hasError = true;
         }
 
-        if (String(nameField.val()).trim().length < 2) {
-            nameField.closest('.form-row').addClass('has-error');
+        if (String($nameField.val()).trim().length < 2) {
+            $nameField.closest('.form-row').addClass('has-error');
             hasError = true;
         }
 
-        if (photoField.val()) {
-            var photoExt = photoField.val().split('.').pop().toLowerCase();
-            if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
-                photoField.closest('.form-row').addClass('has-error');
+        hasError = true;
+        if ($photoField.val()) {
+            var photoExt = $photoField.val().split('.').pop().toLowerCase();
+            if($.inArray(photoExt, ['gif','png','jpg','jpeg']) == -1 || $photoField[0].files[0].size > 8 * 1024 * 1024) {
+                $photoField.closest('.form-row').addClass('has-error');
                 hasError = true;
             }
         }
 
-        if (String(passwordField.val()).trim().length < 6) {
-            passwordField.closest('.form-row').addClass('has-error');
+        if (String($passwordField.val()).trim().length < 6) {
+            $passwordField.closest('.form-row').addClass('has-error');
             hasError = true;
         }
 
-        if (String(passwordRepeatField.val()).trim() !== String(passwordField.val()).trim()) {
-            passwordRepeatField.closest('.form-row').addClass('has-error');
+        if (String($passwordRepeatField.val()).trim() !== String($passwordRepeatField.val()).trim()) {
+            $passwordRepeatField.closest('.form-row').addClass('has-error');
             hasError = true;
         }
 
