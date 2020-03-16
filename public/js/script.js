@@ -52,7 +52,6 @@ $(function () {
             hasError = true;
         }
 
-        hasError = true;
         if ($photoField.val()) {
             var photoExt = $photoField.val().split('.').pop().toLowerCase();
             if($.inArray(photoExt, ['gif','png','jpg','jpeg']) == -1 || $photoField[0].files[0].size > 8 * 1024 * 1024) {
