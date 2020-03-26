@@ -1,0 +1,21 @@
+<html lang="ru">
+<head>
+    <title>{{ 'Test task'|translate }}</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="top-menu">
+        <b>{{ 'Language'|translate }}:</b>
+        <span class="languages">
+            {{ translator.lang == 'ru' ? '<b>Рус</b>' : '<a href="/site/changelang?lang=ru">Рус</a>' }}
+            {{ translator.lang == 'en' ? '<b>Eng</b>' : '<a href="/site/changelang?lang=en">Eng</a>' }}
+        </span>
+        {{ isAuthenticated ? ('<a href="/site/logout" class="logout-button">' ~ 'Logout'|translate ~ '</a>')|raw : '' }}
+    </div>
+
+    {% block content %}{% endblock %}
+
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>

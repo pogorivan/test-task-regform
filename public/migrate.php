@@ -3,7 +3,7 @@
  * @var $config array
  */
 
-require 'include/config.php';
+$config = require __DIR__.'/../config/main.php';
 
 $dbh = new PDO($config['db_dsn'], $config['db_user'], $config['db_password']);
 

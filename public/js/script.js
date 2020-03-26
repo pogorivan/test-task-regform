@@ -3,13 +3,13 @@ $(function () {
         $('.tab').removeClass('active');
         $(this).addClass('active');
         $('#tab-login').addClass('active');
-        history.pushState({'reg': 1}, null, '/login.php');
+        history.pushState({'reg': 1}, null, '/site/login');
     });
     $('#tab-register-button').on('click', function () {
         $('.tab').removeClass('active');
         $(this).addClass('active');
         $('#tab-register').addClass('active');
-        history.pushState({'reg': 1}, null, '/login.php?reg=1');
+        history.pushState({'reg': 1}, null, '/site/login?reg=1');
     });
 
     $('input').on('click input', function () {

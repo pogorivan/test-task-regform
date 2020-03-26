@@ -1,5 +1,7 @@
 <?php
-namespace TestTask;
+namespace App\Components;
+
+use App\Models\User;
 
 class Auth {
     /**

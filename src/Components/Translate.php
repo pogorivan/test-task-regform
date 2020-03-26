@@ -1,12 +1,12 @@
 <?php
-namespace TestTask;
+namespace App\Components;
 
 class Translate {
 
     const MESSAGES = [
         'en' => [],
         'ru' => [
-            'Lenguage' => 'Язык',
+            'Language' => 'Язык',
             'Test task' => 'Тестовое задание',
             'Logout' => 'Выйти',
             'To access your personal account you need to log in' => 'Для доступа к личному кабинету необходимо авторизоваться',

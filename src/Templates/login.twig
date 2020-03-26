@@ -1,0 +1,64 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <div class="login-form-cont">
+        <h1 style="text-align: center">{{ 'To access your personal account you need to log in'|translate }}</h1>
+
+        <div class="tabs-cont">
+            <div class="tabs-navigation">
+                <div id="tab-login-button" class="tab{{regTab ? '' : ' active' }}"><h2>{{ 'Log in'|translate }}</h2></div>
+                <div id="tab-register-button" class="tab{{regTab ? ' active' : '' }}"><h2>{{ 'Register'|translate }}</h2></div>
+            </div>
+
+            <div class="tabs-content">
+                <div id="tab-login" class="tab{{regTab ? '' : ' active' }}">
+                    <form method="post" action="?">
+                        <div class="form-row{{ errors['loginEmail'] ? ' has-error' : '' }}">
+                            <label for="login-form-email">Email</label>
+                            <input id="login-form-email" type="text" name="email" value="{{ formValues['email'] ? formValues['email'] : '' }}">
+                            <div class="error">{{ 'Please enter correct email'|translate }}</div>
+                        </div>
+                        <div class="form-row{{ errors['loginPassword'] ? ' has-error' : '' }}">
+                            <label for="login-form-password">{{ 'Password'|translate }}</label>
+                            <input id="login-form-password" type="password" name="password">
+                            <div class="error">{{ 'Please enter password - at least 6 characters'|translate }}</div>
+                        </div>
+                        {{ loginError ? ('<p id="login-error">' ~ 'User with such email and password was not found'|translate ~ '</p>')|raw : '' }}
+                        <button type="submit">{{ 'Log in'|translate }}</button>
+                    </form>
+                </div>
+                <div id="tab-register" class="tab{{regTab ? ' active' : '' }}">
+                    <form method="post" action="?reg=1" enctype="multipart/form-data">
+                        <div class="form-row{{ errors['regEmail'] ? ' has-error' : '' }}">
+                            <label for="register-form-email">Email <span class="red">*</span></label>
+                            <input id="register-form-email" type="text" name="email" value="{{ formValues['email'] ? formValues['email'] : '' }}">
+                            <div class="error">{{ 'Please enter correct email'|translate }}</div>
+                            {{ errors['emailExists'] ? ('<div id="email-exist">' ~ 'This email is already registered'|translate ~ '</div>')|raw : '' }}
+                        </div>
+                        <div class="form-row{{ errors['regName'] ? ' has-error' : '' }}">
+                            <label for="register-form-name">{{ 'Name'|translate }} <span class="red">*</span></label>
+                            <input id="register-form-name" type="text" name="name" value="{{ formValues['name'] ? formValues['name'] : '' }}">
+                            <div class="error">{{ 'Please enter your name'|translate }}</div>
+                        </div>
+                        <div class="form-row{{ errors['regPhoto'] ? ' has-error' : '' }}">
+                            <label for="register-form-photo">{{ 'Photo'|translate }}</label>
+                            <input id="register-form-photo" type="file" name="photo">
+                            <div class="error"{{ 'Select gif, jpg or png picture no more than 8Mb'|translate }}></div>
+                        </div>
+                        <div class="form-row{{ errors['regPassword'] ? ' has-error' : '' }}">
+                            <label for="register-form-password">{{ 'Password'|translate }} <span class="red">*</span></label>
+                            <input id="register-form-password" type="password" name="password">
+                            <div class="error">{{ 'Please enter password - at least 6 characters'|translate }}</div>
+                        </div>
+                        <div class="form-row{{ errors['regPasswordRepeat'] ? ' has-error' : '' }}">
+                            <label for="register-form-password-repeat">{{ 'Repeat password'|translate }} <span class="red">*</span></label>
+                            <input id="register-form-password-repeat" type="password" name="password_repeat">
+                            <div class="error">{{ 'Password repeat and password do not match'|translate }}</div>
+                        </div>
+                        <button type="submit">{{ 'Register'|translate }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
