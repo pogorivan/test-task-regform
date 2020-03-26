@@ -11,11 +11,7 @@ class Controller
     public function render ($viewName, array $params = [])
     {
         $loader = new \Twig\Loader\FilesystemLoader(__DIR__.'/../Templates');
-        $twig = new \Twig\Environment($loader, [
-            'debug' => true,
-        ]);
-
-        $twig->addExtension(new \Twig\Extension\DebugExtension());
+        $twig = new \Twig\Environment($loader);
 
         $twig->addGlobal('isAuthenticated', Auth::isAuthenticated());
         $twig->addGlobal('translator', App::$container->get('translator'));
