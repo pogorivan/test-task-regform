@@ -93,8 +93,9 @@ class User {
             $this->id = $db->lastInsertId();
 
             if ($this->photo) {
-                $fileName = 'user-photo-'.$this->id.'.'.pathinfo($this->photo["name"])['extension'];
-                if (move_uploaded_file($this->photo['tmp_name'], __DIR__.'/../uploads/'.$fileName)) {
+                $imageinfo = getimagesize($this->photo['tmp_name']);
+                $fileName = 'user-photo-'.$this->id.'.'.explode('/',$imageinfo['mime'])[1];
+                if (move_uploaded_file($this->photo['tmp_name'], __DIR__.'/../../public/uploads/'.$fileName)) {
                     $stmt = $db->prepare("update " . self::TABLE_NAME . " set photo = ? where id = ?");
                     $stmt->execute([$fileName, $this->id]);
                 }

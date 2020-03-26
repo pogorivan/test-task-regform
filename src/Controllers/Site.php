@@ -58,7 +58,10 @@ class Site extends Controller
                 }
 
                 if (empty($errors) && !empty($_FILES['photo'] && !empty($_FILES['photo']['tmp_name']))) {
-                    if (filesize($_FILES['photo']['tmp_name']) > 8 * 1024 * 1024 || !in_array($_FILES['photo']['type'], ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'])) {
+                    $imageinfo = getimagesize($_FILES['photo']['tmp_name']);
+                    if (filesize($_FILES['photo']['tmp_name']) > 8 * 1024 * 1024
+                        || !in_array($imageinfo['mime'], ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'])
+                    ) {
                         $errors['regPhoto'] = true;
                     } else {
                         $photoVal = $_FILES['photo'];
